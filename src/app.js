@@ -1,6 +1,7 @@
-const express = require('express')
-const cors = require('cors')
-const authRoutes = require('./routes/auth')
+const express = require('express');
+const cors = require('cors');
+const authRoutes = require('./routes/auth');
+const ticketRoutes = require('./routes/tickets');
 const {protect} = require('./middleware/auth');
 
 
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Helpdesk API running'})
