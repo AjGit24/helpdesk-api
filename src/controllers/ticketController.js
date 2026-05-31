@@ -52,4 +52,28 @@ const getTicketById = async (req, res) => {
     }
 };
 
-module.exports = {getTickets, createTicket, getTicketById}
+const updateTicket = async (req, res) => {
+    try{
+        const {status, assignedTo, priority} = req.body;
+        const ticket = await Ticket.findById(req.params.id);
+
+        if (!ticket) {
+            return res.status(404).json({message: 'Ticket not found'});
+        }
+
+        if (status) ticket.status = status;
+        if (priority) ticket.priority = priority;
+        if (assignedTo) ticket.assignedTo = assignedTo;
+
+        if (status === 'resolved' && !ticket.resolvedAt) {
+            ticket.resolvedAt = new Date();
+        }
+
+        await ticket.save();
+        res.json(ticket);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+module.exports = {getTickets, createTicket, getTicketById, updateTicket};
