@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Helpdesk API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack IT help desk ticket system built with Node.js, Express, MongoDB, and React. Features JWT authentication, role-based access control, ticket lifecycle management, and an analytics dashboard powered by MongoDB aggregation pipelines.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+**Backend:** Node.js, Express, MongoDB, Mongoose  
+**Auth:** JWT, bcrypt  
+**Frontend:** React, Recharts, Axios
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Register and login with JWT authentication
+- Role-based access: user / agent / admin
+- Submit, assign, and resolve support tickets
+- Filter tickets by status
+- Analytics dashboard: ticket volume by status and category
+- Average resolution time by priority (aggregation pipeline)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js v18+
+- MongoDB (local or Atlas)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/AjGit24/helpdesk-api.git
+cd helpdesk-api
+npm install
+cd client && npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Create a `.env` file in the root:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+PORT=8080
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
 
-### `npm run eject`
+### Run the app
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Backend:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run dev
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Frontend (in a separate terminal):
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd client
+npm start
+```
 
-## Learn More
+### Seed the database
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run seed
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API Endpoints
 
-### Code Splitting
+| Method | Route                          | Description                                 | Auth        |
+| ------ | ------------------------------ | ------------------------------------------- | ----------- |
+| POST   | /api/auth/register             | Register a user                             | No          |
+| POST   | /api/auth/login                | Login + get token                           | No          |
+| GET    | /api/tickets                   | List tickets                                | Yes         |
+| POST   | /api/tickets                   | Create ticket                               | Yes         |
+| GET    | /api/tickets/:id               | Get ticket by ID                            | Yes         |
+| PATCH  | /api/tickets/:id               | Update ticket                               | Agent/Admin |
+| GET    | /api/analytics/summary         | Ticket counts by status, priority, category | Yes         |
+| GET    | /api/analytics/resolution-time | Avg resolution time by priority             | Yes         |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Status
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Built as a learning project to develop Node.js, MongoDB aggregation pipeline, REST API, and React skills.
