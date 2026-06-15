@@ -3,8 +3,6 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const ticketRoutes = require('./routes/tickets');
 const analyticsRoutes = require('./routes/analytics');
-const {protect} = require('./middleware/auth');
-
 
 const app = express();
 
@@ -16,11 +14,7 @@ app.use('/api/tickets', ticketRoutes);
 app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req, res) => {
-    res.json({message: 'Helpdesk API running'})
-});
-
-app.get('/api/protected', protect, (req, res) => {
-    res.json({message: `Hello ${req.user.name}, you are authenticated`});
+  res.json({ message: 'Helpdesk API running' });
 });
 
 module.exports = app;

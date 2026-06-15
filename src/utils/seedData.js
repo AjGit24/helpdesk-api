@@ -27,18 +27,19 @@ const seedDB = async () => {
     const agents = createdUsers.slice(1, 3);
     const endUsers = createdUsers.slice(3);
 
-    const tickets = [
-      { title: 'Cannot access VPN', description: 'Getting auth error on VPN login', status: 'resolved', priority: 'critical', category: 'network', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id, resolvedAt: new Date(Date.now() - 2 * 60 * 60 * 1000) },
-      { title: 'Outlook not syncing', description: 'Emails not loading since this morning', status: 'resolved', priority: 'high', category: 'software', submittedBy: endUsers[1]._id, assignedTo: agents[1]._id, resolvedAt: new Date(Date.now() - 5 * 60 * 60 * 1000) },
-      { title: 'New laptop setup', description: 'Need help setting up new MacBook', status: 'resolved', priority: 'medium', category: 'hardware', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id, resolvedAt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
-      { title: 'Printer offline', description: 'Office printer not responding', status: 'in-progress', priority: 'medium', category: 'hardware', submittedBy: endUsers[1]._id, assignedTo: agents[1]._id },
-      { title: 'Reset password', description: 'Locked out of admin account', status: 'in-progress', priority: 'high', category: 'access', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id },
-      { title: 'Slack not loading', description: 'App crashes on startup', status: 'open', priority: 'low', category: 'software', submittedBy: endUsers[1]._id },
-      { title: 'Monitor flickering', description: 'Second monitor has display issues', status: 'open', priority: 'medium', category: 'hardware', submittedBy: endUsers[0]._id },
-      { title: 'Need admin access', description: 'Requesting elevated permissions for project', status: 'open', priority: 'high', category: 'access', submittedBy: endUsers[1]._id },
-      { title: 'WiFi dropping', description: 'Connection drops every 30 minutes', status: 'resolved', priority: 'critical', category: 'network', submittedBy: endUsers[0]._id, assignedTo: agents[1]._id, resolvedAt: new Date(Date.now() - 48 * 60 * 60 * 1000) },
-      { title: 'Software license expired', description: 'Adobe CC license needs renewal', status: 'open', priority: 'medium', category: 'software', submittedBy: endUsers[1]._id },
-    ];
+    const now = new Date();
+const tickets = [
+  { title: 'Cannot access VPN', description: 'Getting auth error on VPN login', status: 'resolved', priority: 'critical', category: 'network', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id, createdAt: new Date(now - 3 * 60 * 60 * 1000), resolvedAt: new Date(now - 1 * 60 * 60 * 1000) },
+  { title: 'Outlook not syncing', description: 'Emails not loading since this morning', status: 'resolved', priority: 'high', category: 'software', submittedBy: endUsers[1]._id, assignedTo: agents[1]._id, createdAt: new Date(now - 10 * 60 * 60 * 1000), resolvedAt: new Date(now - 5 * 60 * 60 * 1000) },
+  { title: 'New laptop setup', description: 'Need help setting up new MacBook', status: 'resolved', priority: 'medium', category: 'hardware', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id, createdAt: new Date(now - 48 * 60 * 60 * 1000), resolvedAt: new Date(now - 24 * 60 * 60 * 1000) },
+  { title: 'Printer offline', description: 'Office printer not responding', status: 'in-progress', priority: 'medium', category: 'hardware', submittedBy: endUsers[1]._id, assignedTo: agents[1]._id },
+  { title: 'Reset password', description: 'Locked out of admin account', status: 'in-progress', priority: 'high', category: 'access', submittedBy: endUsers[0]._id, assignedTo: agents[0]._id },
+  { title: 'Slack not loading', description: 'App crashes on startup', status: 'open', priority: 'low', category: 'software', submittedBy: endUsers[1]._id },
+  { title: 'Monitor flickering', description: 'Second monitor has display issues', status: 'open', priority: 'medium', category: 'hardware', submittedBy: endUsers[0]._id },
+  { title: 'Need admin access', description: 'Requesting elevated permissions for project', status: 'open', priority: 'high', category: 'access', submittedBy: endUsers[1]._id },
+  { title: 'WiFi dropping', description: 'Connection drops every 30 minutes', status: 'resolved', priority: 'critical', category: 'network', submittedBy: endUsers[0]._id, assignedTo: agents[1]._id, createdAt: new Date(now - 72 * 60 * 60 * 1000), resolvedAt: new Date(now - 48 * 60 * 60 * 1000) },
+  { title: 'Software license expired', description: 'Adobe CC license needs renewal', status: 'open', priority: 'medium', category: 'software', submittedBy: endUsers[1]._id },
+];
 
     await Ticket.create(tickets);
     console.log('Tickets created');

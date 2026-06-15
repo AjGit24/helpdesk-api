@@ -43,7 +43,7 @@ const getTicketById = async (req, res) => {
         .populate('assignedTo', 'name email');
 
         if (!ticket) {
-            res.status(404),json({message: 'Ticket not found'});
+            return res.status(404).json({message: 'Ticket not found'});
         } 
         res.json(ticket);
 
