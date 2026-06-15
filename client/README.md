@@ -2,6 +2,11 @@
 
 A full-stack IT help desk ticket system built with Node.js, Express, MongoDB, and React. Features JWT authentication, role-based access control, ticket lifecycle management, and an analytics dashboard powered by MongoDB aggregation pipelines.
 
+## Live Demo
+
+- Frontend: https://helpdesk-client-3ye9.onrender.com
+- Backend API: https://helpdesk-api-14k3.onrender.com
+
 ## Tech Stack
 
 **Backend:** Node.js, Express, MongoDB, Mongoose  
