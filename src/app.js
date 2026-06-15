@@ -3,6 +3,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const ticketRoutes = require('./routes/tickets');
 const analyticsRoutes = require('./routes/analytics');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.get('/', (req, res) => {
   res.json({ message: 'Helpdesk API running' });
 });
+
+app.use(errorHandler);
 
 module.exports = app;

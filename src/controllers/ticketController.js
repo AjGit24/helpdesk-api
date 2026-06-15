@@ -20,20 +20,25 @@ const getTickets = async (req, res) => {
 };
 
 const createTicket = async (req, res) => {
-    try{
-        const {title, description, priority, category} = req.body;
+  try {
+    const { title, description, priority, category } = req.body;
 
-        const ticket = await Ticket.create({
-            title, 
-            description, 
-            priority, 
-            category, 
-            submittedBy: req.user._id,
-        });
-        res.status(201).json(ticket);
-    } catch (error) {
-        res.status(500).json({message: error.message});
+    if (!title || !description) {
+      return res.status(400).json({ message: 'Title and description are required' });
     }
+
+    const ticket = await Ticket.create({
+      title,
+      description,
+      priority,
+      category,
+      submittedBy: req.user._id,
+    });
+
+    res.status(201).json(ticket);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const getTicketById = async (req, res) => {

@@ -7,33 +7,41 @@ const generateToken = (id, role) => {
 };
 
 const register = async (req, res) => {
-    try {
-        const {name, email, password, role} = req.body;
+  try {
+    const { name, email, password, role } = req.body;
 
-        const existingUser = await User.findOne({email});
-        if (existingUser){
-            return res.status(400).json({message: 'Email already in use'});
-        }
-
-        const user = await User.create({
-            name, 
-            email, 
-            passwordHash: password, 
-            role,
-        });
-
-        res.status(201).json({
-            token: generateToken(user._id, user.role),
-            user: {
-                id: user._id,
-                name: user.name, 
-                email: user.email,
-                role: user.role,
-            },
-        });
-    } catch (error) {
-        res.status(500).json({message: error.message});
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Name, email and password are required' });
     }
+
+    if (password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    const user = await User.create({
+      name,
+      email,
+      passwordHash: password,
+      role,
+    });
+
+    res.status(201).json({
+      token: generateToken(user._id, user.role),
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const login = async (req, res) => {
